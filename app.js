@@ -8,7 +8,6 @@ const corsOptions = {
   origin: ['http://localhost:3000', 'https://gauth.co.kr'],
   methods: '*',
   allowedHeaders: '*',
-  exposedHeaders: ['Authorization'],
   credentials: true
 };
 app.use(cors(corsOptions));
