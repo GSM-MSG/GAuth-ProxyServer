@@ -1,5 +1,5 @@
 const express = require('express');
-const { getLinkPreview } = require('link-preview-js');
+const { getLinkPreview, getPreviewFromContent } = require('link-preview-js');
 const cors = require('cors');
 
 const app = express();
@@ -20,12 +20,21 @@ app.get('/:url(*)', (req, res) => {
         res.send({
           'image': data.images[0]
         });
-      else
-        res.status(404).send('Not found twitter image')
     })
     .catch(_ => {
-      res.status(404).send('Not found twitter image');
-    });
+      getPreviewFromContent(url)
+        .then(data => {
+          if (data.images[0]) 
+            res.send({
+              'image': data.images[0]
+            });
+          else
+            res.status(404).send('Not Found Page');
+        })
+        .catch(_ => {
+          res.status(404).send('Not Found Page');
+        })
+    })
 });
 
 app.listen('3001');
