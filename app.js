@@ -1,7 +1,17 @@
 const express = require('express');
 const { getLinkPreview } = require('link-preview-js');
+const cors = require('cors');
 
 const app = express();
+
+const corsOptions = {
+  origin: ['http://localhost:3000', 'https://gauth.co.kr'],
+  methods: '*',
+  allowedHeaders: '*',
+  exposedHeaders: ['Authorization'],
+  credentials: true
+};
+app.use(cors(corsOptions));
 
 app.get('/:url(*)', (req, res) => {
   const url = req.params.url
