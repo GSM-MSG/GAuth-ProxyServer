@@ -25,10 +25,6 @@ app.get('/:url(*)', (req, res) => {
       res.send({
         'image': data.images[0]
       });
-    else if (data.favicons[0])
-      res.send({
-        'image': data.favicons[0]
-      });
     else
       res.status(404).send('Not Found Page');
   })
