@@ -3,8 +3,6 @@ const { getLinkPreview } = require('link-preview-js');
 
 const app = express();
 
-const port = '3003';
-
 app.get('/:url(*)', (req, res) => {
   const url = req.params.url
   getLinkPreview(url)
