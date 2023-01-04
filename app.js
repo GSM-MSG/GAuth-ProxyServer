@@ -14,27 +14,27 @@ app.use(cors(corsOptions));
 
 app.get('/:url(*)', (req, res) => {
   const url = req.params.url
-  getLinkPreview(url)
-    .then(data => {
-      if (data.images[0]) 
-        res.send({
-          'image': data.images[0]
-        });
-    })
-    .catch(_ => {
-      getPreviewFromContent(url)
-        .then(data => {
-          if (data.images[0]) 
-            res.send({
-              'image': data.images[0]
-            });
-          else
-            res.status(404).send('Not Found Page');
-        })
-        .catch(_ => {
-          res.status(404).send('Not Found Page');
-        })
-    })
+  getLinkPreview(url, {
+    headers: {
+      'x-requested-with': ''
+    }
+  })
+  .then(data => {
+    console.log(data);
+    if (data.images[0]) 
+      res.send({
+        'image': data.images[0]
+      });
+    else if (data.favicons[0])
+      res.send({
+        'image': data.favicons[0]
+      });
+    else
+      res.status(404).send('Not Found Page');
+  })
+  .catch(_ => {
+    res.status(404).send('Not Found Page');
+  })
 });
 
 app.listen('3001');
