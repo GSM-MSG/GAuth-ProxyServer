@@ -26,11 +26,15 @@ app.get('/:url(*)', (req, res) => {
         'image': data.images[0]
       });
     else
-      res.status(404).send('Not Found Page');
+      res.send({
+        'image': null
+      });
   })
   .catch(_ => {
-    res.status(404).send('Not Found Page');
-  })
+    res.send({
+      'image': null
+    });
+  });
 });
 
 app.listen('3001');
