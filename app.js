@@ -14,6 +14,7 @@ app.use(cors(corsOptions));
 
 app.get('/:url(*)', (req, res) => {
   const url = req.params.url
+  console.log('request ${url}')
   getLinkPreview(url, {
     headers: {
       'x-requested-with': ''
@@ -37,4 +38,4 @@ app.get('/:url(*)', (req, res) => {
   });
 });
 
-app.listen('3001');
+app.listen('3002');
